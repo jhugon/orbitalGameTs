@@ -25,3 +25,11 @@ export function init(mass: number, thrustNominal: number): SpaceObject {
     };
     return result
 }
+
+export function updatePositionVelocity(so: SpaceObject, dt: number): void {
+    const {position, velocity, acceleration} = so;
+    velocity.x += acceleration.x*dt;
+    velocity.y += acceleration.y*dt;
+    position.x += velocity.x*dt;
+    position.y += velocity.y*dt;
+}
