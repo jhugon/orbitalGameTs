@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [v0.4.0](https://github.com/jhugon/orbitalGameTs/releases/tag/v0.4.0) - 2022-08-30
+
+- [`fef7073`](https://github.com/jhugon/orbitalGameTs/commit/fef70734915e9966d5d308b77ee7419e8a1fd5e5) feat: added updatePositionVelocity to spaceobject
+
 ## [v0.3.0](https://github.com/jhugon/orbitalGameTs/releases/tag/v0.3.0) - 2022-08-30
 
 - [`7b24fa5`](https://github.com/jhugon/orbitalGameTs/commit/7b24fa54325fb6dacc90d5c592af42d59ef26a82) Merge pull request #1 from jhugon/eslint-ts
