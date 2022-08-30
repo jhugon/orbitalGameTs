@@ -2,8 +2,29 @@ import './style.css'
 import {Sprite} from "./view/sprite";
 import {SpaceObject} from "./model/spaceobject";
 
-const fighter_sprite = Sprite("FighterLaser_lightblue.png");
-const fighther_so = SpaceObject(0.,1.);
+class SpaceObjectUI {
+  sprite: Sprite;
+  model: SpaceObject;
+
+  constructor(img_fn: string, mass: number, thrustNominal: number) {
+    this.sprite = new Sprite(img_fn);
+    this.model = new SpaceObject(mass,thrustNominal);
+  }
+
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.sprite.draw(ctx,this.model.position);
+  }
+
+  update(dt: float): void {
+    this.model.updatePositionVelocity(dt);
+  }
+}
+
+const fighter = new SpaceObjectUI("FighterLaser_lightblue.png",0.,1.);
+//fighter.model.position.x = 300;
+//fighter.model.position.y = 300;
+fighter.model.velocity.x = 30;
+fighter.model.velocity.y = 50;
 
 const canvasEl = document.getElementById('canvas');
 if (canvasEl instanceof HTMLCanvasElement) {
@@ -12,41 +33,18 @@ if (canvasEl instanceof HTMLCanvasElement) {
   if (ctxEl instanceof CanvasRenderingContext2D) {
     const ctx: CanvasRenderingContext2D = ctxEl;
     
-    const ball = {
-      x: 100,
-      y: 100,
-      vx: 5,
-      vy: 2,
-      radius: 25,
-      color: 'blue',
-      draw() {
-        ctx.drawImage(fighter,this.x,this.y);
-      }
-    };
-    
     function draw() {
       ctx.clearRect(0,0, canvas.width, canvas.height);
-      ball.draw();
-      ball.x += ball.vx;
-      ball.y += ball.vy;
-    
-      if (ball.y + ball.vy > canvas.height ||
-          ball.y + ball.vy < 0) {
-        ball.vy = -ball.vy;
-      }
-      if (ball.x + ball.vx > canvas.width ||
-          ball.x + ball.vx < 0) {
-        ball.vx = -ball.vx;
-      }
+      fighter.draw(ctx);
+      fighter.update(1./60.);
     
       window.requestAnimationFrame(draw);
     }
     
     canvas.addEventListener('click', (_) => {
-      ball.vx += 1;
+      fighter.model.acceleration.y -= 1;
     });
     
-    ball.draw();
     draw();
   }
 }
