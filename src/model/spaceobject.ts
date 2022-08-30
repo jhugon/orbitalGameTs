@@ -12,7 +12,7 @@ export interface SpaceObject {
     thrust: Vector; // actual acceleration due to thrust
     thrustNominal: number; // nominal thrust value
     mass: number;
-};
+}
 
 export function init(mass: number, thrustNominal: number) {
     const result: SpaceObject = {
