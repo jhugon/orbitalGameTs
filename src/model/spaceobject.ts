@@ -16,12 +16,12 @@ export interface SpaceObject {
 
 export function init(mass: number, thrustNominal: number) {
     const result: SpaceObject = {
-        position: {x: 0., y:0.};
-        velocity: {x: 0., y:0.};
-        acceleration: {x: 0., y:0.};
-        thrustRelative: {x: 0., y:0.};
-        thrustNominal: thrustNominal;
-        mass: mass;
+        position: {x: 0., y:0.},
+        velocity: {x: 0., y:0.},
+        acceleration: {x: 0., y:0.},
+        thrust: {x: 0., y:0.},
+        thrustNominal: thrustNominal,
+        mass: mass,
     };
     return result
 }
