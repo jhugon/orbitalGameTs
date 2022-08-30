@@ -1,4 +1,9 @@
 import './style.css'
+import {Sprite} from "./view/sprite";
+import {SpaceObject} from "./model/spaceobject";
+
+const fighter_sprite = Sprite("FighterLaser_lightblue.png");
+const fighther_so = SpaceObject(0.,1.);
 
 const canvasEl = document.getElementById('canvas');
 if (canvasEl instanceof HTMLCanvasElement) {
@@ -6,8 +11,6 @@ if (canvasEl instanceof HTMLCanvasElement) {
   const ctxEl = canvas.getContext('2d');
   if (ctxEl instanceof CanvasRenderingContext2D) {
     const ctx: CanvasRenderingContext2D = ctxEl;
-    const fighter = new Image();
-    fighter.src = "FighterLaser_lightblue.png";
     
     const ball = {
       x: 100,
