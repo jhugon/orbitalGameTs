@@ -1,24 +1,5 @@
 import './style.css'
-import {Sprite} from "./view/sprite";
-import {SpaceObject} from "./model/spaceobject";
-
-class SpaceObjectUI {
-  sprite: Sprite;
-  model: SpaceObject;
-
-  constructor(img_fn: string, mass: number, thrustNominal: number) {
-    this.sprite = new Sprite(img_fn);
-    this.model = new SpaceObject(mass,thrustNominal);
-  }
-
-  draw(ctx: CanvasRenderingContext2D): void {
-    this.sprite.draw(ctx,this.model.position);
-  }
-
-  update(dt: number): void {
-    this.model.updatePositionVelocity(dt);
-  }
-}
+import {SpaceObjectUI} from "./ui/spaceobjectui";
 
 const fighter = new SpaceObjectUI("FighterLaser_lightblue.png",0.,1.);
 //fighter.model.position.x = 300;
