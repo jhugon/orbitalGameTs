@@ -15,7 +15,7 @@ class SpaceObjectUI {
     this.sprite.draw(ctx,this.model.position);
   }
 
-  update(dt: float): void {
+  update(dt: number): void {
     this.model.updatePositionVelocity(dt);
   }
 }

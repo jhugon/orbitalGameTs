@@ -16,7 +16,7 @@ export class SpaceObject {
         this.thrust = new Vector(0,0);
         this.mass = mass;
         this.thrustNominal = thrustNominal;
-    };
+    }
 
     updatePositionVelocity(dt: number): void {
         this.velocity.x += this.acceleration.x*dt;
