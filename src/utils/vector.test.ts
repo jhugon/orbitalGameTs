@@ -14,19 +14,19 @@ describe("Vector", () => {
       const x = 4.;
       const y = -5.;
       const vec = new Vector(x,y);
-      expect(vec.magnitude()).toBe(Math.sqrt(x*x+y*y));
+      expect(vec.magnitude).toBe(Math.sqrt(x*x+y*y));
   });
   test("angleRadians", () => {
       const x = 4.;
       const y = -5.;
       const vec = new Vector(x,y);
-      expect(vec.angleRadians()).toBe(Math.atan2(y,x));
+      expect(vec.angleRadians).toBe(Math.atan2(y,x));
   });
   test("angleDegrees", () => {
       const x = 4.;
       const y = -5.;
       const vec = new Vector(x,y);
-      expect(vec.angleDegrees()).toBe(Math.atan2(y,x)*180/Math.PI);
+      expect(vec.angleDegrees).toBe(Math.atan2(y,x)*180/Math.PI);
   });
   test("add", () => {
       const x1 = 4;

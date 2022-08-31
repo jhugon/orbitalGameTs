@@ -7,16 +7,16 @@ export class Vector {
         this.y = y;
     }
 
-    magnitude(): number {
+    get magnitude(): number {
         return Math.sqrt(this.x*this.x+this.y*this.y);
     }
 
-    angleRadians(): number {
+    get angleRadians(): number {
         return Math.atan2(this.y,this.x);
     }
 
-    angleDegrees(): number {
-        return this.angleRadians() * 180 / Math.PI;
+    get angleDegrees(): number {
+        return this.angleRadians * 180 / Math.PI;
     }
 
     add(other: Vector): void {
@@ -64,8 +64,7 @@ export class Vector {
     }
 
     normalize(): void {
-        const mag = this.magnitude();
-        this.divide(mag);
+        this.divide(this.magnitude);
     }
 
     static normalize(a: Vector): Vector {
