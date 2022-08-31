@@ -36,7 +36,7 @@ if (canvasEl instanceof HTMLCanvasElement) {
     function draw() {
       ctx.clearRect(0,0, canvas.width, canvas.height);
       fighter.draw(ctx);
-      fighter.update(1./60.);
+      fighter.update(1/60);
     
       window.requestAnimationFrame(draw);
     }
