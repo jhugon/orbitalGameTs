@@ -1,5 +1,6 @@
-
 import {SpaceObjectUI} from "./spaceobjectui";
+import {Vector} from "../utils/vector";
+
 export class GameUI {
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
@@ -28,8 +29,8 @@ export class GameUI {
     }
 
     run(): void {
-        this.canvas.addEventListener("click", (/*event: MouseEvent*/) => {
-            this.onClick(/*event*/);
+        this.canvas.addEventListener("click", (event: MouseEvent) => {
+            this.onClick(event);
         });
 
         this.update(null);
@@ -37,8 +38,6 @@ export class GameUI {
 
     // timestamp is in floating point ms
     update(timestamp: number | null): void {
-        console.log("Timestamp:")
-        console.log(timestamp)
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
         this.spaceobjects.forEach( (x) => {
             x.draw(this.ctx);
@@ -47,9 +46,11 @@ export class GameUI {
         if (this.lastTimstamp === null || timestamp === null) { // first couple updates
         } else {
             const dt = timestamp-this.lastTimstamp;
-            this.spaceobjects.forEach ( (x) => {
-                x.update(dt/1000); // convert ms to s
-            });
+            if (dt > 0) {
+                this.spaceobjects.forEach ( (x) => {
+                    x.update(dt/1000); // convert ms to s
+                });
+            }
         }
         this.lastTimstamp = timestamp;
     
@@ -59,9 +60,12 @@ export class GameUI {
         });
     }
 
-    onClick(/*event: MouseEvent*/): void {
+    onClick(event: MouseEvent): void {
+        const clickPos = new Vector(event.offsetX,event.offsetY);
         this.spaceobjects.forEach ( (so) => {
-            so.model.acceleration.y -= 1;
+            const thrust = Vector.subtract(clickPos,so.model.position);
+            thrust.normalize();
+            so.model.thrustRequest = thrust;
         });
     }
 }
