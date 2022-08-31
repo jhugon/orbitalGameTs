@@ -11,6 +11,14 @@ export class Vector {
         return Math.sqrt(this.x*this.x+this.y*this.y);
     }
 
+    angleRadians(): number {
+        return Math.atan2(this.y,this.x);
+    }
+
+    angleDegrees(): number {
+        return this.angleRadians() * 180 / Math.PI;
+    }
+
     add(other: Vector): void {
         this.x += other.x;
         this.y += other.y;
