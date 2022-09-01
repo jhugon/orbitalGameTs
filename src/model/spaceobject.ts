@@ -20,18 +20,14 @@ export class SpaceObject {
         this.thrustNominal = thrustNominal;
     }
 
-    updatePositionVelocity(dt: number): void {
-        this.velocity.x += this.acceleration.x*dt;
-        this.velocity.y += this.acceleration.y*dt;
-        this.position.x += this.velocity.x*dt;
-        this.position.y += this.velocity.y*dt;
-    }
-
-    updateAcceleration(acceleration: Vector): void {
+    // velocity is updated with dt*(acceleration + thrust)
+    update(dt: number): void {
         this.thrust.x = this.thrustRequest.x*this.thrustNominal;
         this.thrust.y = this.thrustRequest.y*this.thrustNominal;
-        this.acceleration.x = acceleration.x+this.thrust.x;
-        this.acceleration.y = acceleration.y+this.thrust.y;
+        this.velocity.x += (this.acceleration.x+this.thrust.x)*dt;
+        this.velocity.y += (this.acceleration.y+this.thrust.y)*dt;
+        this.position.x += this.velocity.x*dt;
+        this.position.y += this.velocity.y*dt;
         this.thrustRequest = new Vector(0.,0.);
     }
 }

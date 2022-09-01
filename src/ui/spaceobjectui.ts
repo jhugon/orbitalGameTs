@@ -1,7 +1,6 @@
 
 import {Sprite} from "./sprite";
 import {SpaceObject} from "../model/spaceobject";
-import {Vector} from "../utils/vector";
 
 export class SpaceObjectUI {
   sprite: Sprite;
@@ -17,8 +16,6 @@ export class SpaceObjectUI {
   }
 
   update(dt: number): void {
-    const a = new Vector(0.,0.);
-    this.model.updateAcceleration(a);
-    this.model.updatePositionVelocity(dt);
+    this.model.update(dt);
   }
 }
