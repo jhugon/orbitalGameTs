@@ -1,35 +1,34 @@
+import {Vector} from "../utils/vector";
 
-export interface Vector {
-    x: number;
-    y: number;
-}
-
-// All in SI base units
-export interface SpaceObject {
+export class SpaceObject {
+    // All in SI base units
     position: Vector;
     velocity: Vector;
     acceleration: Vector;
-    thrust: Vector; // actual acceleration due to thrust
-    thrustNominal: number; // nominal thrust value
+    thrustNominal: number; // nominal thrust magnitude
+    thrustRequest: Vector; // requested thrust, which will be multiplied by nominal
     mass: number;
-}
 
-export function init(mass: number, thrustNominal: number): SpaceObject {
-    const result: SpaceObject = {
-        position: {x: 0., y:0.},
-        velocity: {x: 0., y:0.},
-        acceleration: {x: 0., y:0.},
-        thrust: {x: 0., y:0.},
-        thrustNominal: thrustNominal,
-        mass: mass,
-    };
-    return result
-}
+    constructor(mass: number, thrustNominal: number) {
+        this.position = new Vector(0,0);
+        this.velocity = new Vector(0,0);
+        this.acceleration = new Vector(0,0);
+        this.thrustRequest = new Vector(0,0);
+        this.mass = mass;
+        this.thrustNominal = thrustNominal;
+    }
 
-export function updatePositionVelocity(so: SpaceObject, dt: number): void {
-    const {position, velocity, acceleration} = so;
-    velocity.x += acceleration.x*dt;
-    velocity.y += acceleration.y*dt;
-    position.x += velocity.x*dt;
-    position.y += velocity.y*dt;
+    // velocity is updated with dt*(acceleration + thrust)
+    update(dt: number): void {
+        this.velocity.x += (this.acceleration.x+this.thrust.x)*dt;
+        this.velocity.y += (this.acceleration.y+this.thrust.y)*dt;
+        this.position.x += this.velocity.x*dt;
+        this.position.y += this.velocity.y*dt;
+        this.thrustRequest.x = 0;
+        this.thrustRequest.y = 0;
+    }
+
+    get thrust(): Vector { // actual acceleration due to thrust
+        return Vector.multiply(this.thrustRequest,this.thrustNominal);
+    }
 }
