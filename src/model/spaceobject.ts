@@ -5,8 +5,7 @@ export class SpaceObject {
     position: Vector;
     velocity: Vector;
     acceleration: Vector;
-    thrust: Vector; // actual acceleration due to thrust
-    thrustNominal: number; // nominal thrust value
+    thrustNominal: number; // nominal thrust magnitude
     thrustRequest: Vector; // requested thrust, which will be multiplied by nominal
     mass: number;
 
@@ -14,7 +13,6 @@ export class SpaceObject {
         this.position = new Vector(0,0);
         this.velocity = new Vector(0,0);
         this.acceleration = new Vector(0,0);
-        this.thrust = new Vector(0,0);
         this.thrustRequest = new Vector(0,0);
         this.mass = mass;
         this.thrustNominal = thrustNominal;
@@ -22,12 +20,15 @@ export class SpaceObject {
 
     // velocity is updated with dt*(acceleration + thrust)
     update(dt: number): void {
-        this.thrust.x = this.thrustRequest.x*this.thrustNominal;
-        this.thrust.y = this.thrustRequest.y*this.thrustNominal;
         this.velocity.x += (this.acceleration.x+this.thrust.x)*dt;
         this.velocity.y += (this.acceleration.y+this.thrust.y)*dt;
         this.position.x += this.velocity.x*dt;
         this.position.y += this.velocity.y*dt;
-        this.thrustRequest = new Vector(0.,0.);
+        this.thrustRequest.x = 0;
+        this.thrustRequest.y = 0;
+    }
+
+    get thrust(): Vector { // actual acceleration due to thrust
+        return Vector.multiply(this.thrustRequest,this.thrustNominal);
     }
 }
